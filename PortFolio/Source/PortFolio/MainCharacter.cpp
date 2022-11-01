@@ -235,7 +235,7 @@ void AMainCharacter::MoveForward(float value)
 		// 회전값을 행렬로 변환 -> 절대축 기준 회전값 가져오기 : X축 기준으로 얼마나 회전되었는지 계산
 		AddMovementInput(Dir, value);
 
-		//UE_LOG(LogTemp, Warning, TEXT("MoveForward State : %f"), value);
+		UE_LOG(LogTemp, Warning, TEXT("MoveForward State : %f"), value);
 
 		//FVector fForward = GetActorForwardVector();
 		//AddMovementInput(fForward, value);
