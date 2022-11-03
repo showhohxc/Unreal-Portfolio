@@ -17,7 +17,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Sound/SoundCue.h"
-//#include "MainPlayerController.h"
+#include "MainPlayerController.h"
 
 // Sets default values
 AMainCharacter::AMainCharacter()
@@ -62,7 +62,7 @@ void AMainCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
-	//MainPlayerController = Cast<AMainPlayerController>(GetController());
+	MainPlayerController = Cast<AMainPlayerController>(GetController());
 }
 
 // Called every frame

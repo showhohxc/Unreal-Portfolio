@@ -45,8 +45,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Combat")
 		FVector CombatTargetLocation;
 
-	/*UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Contoller")
-		class AMainPlayerController* MainPlayerController;*/
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Contoller")
+	class AMainPlayerController* MainPlayerController;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat")
 		class UParticleSystem* HitParticles;
