@@ -17,9 +17,8 @@ class PORTFOLIO_API AMainCameraActor : public ACameraActor
 public:
 	AMainCameraActor();
 
-	class UCameraComponent* m_MainCamera; 
-
-	void SetCameraData();
+	class UCameraComponent* m_MainCamera;
+	UCameraComponent* GetMainCameraComponent() const { return m_MainCamera; }
 
 protected:
 	virtual void BeginPlay() override;

@@ -13,6 +13,8 @@ AMainCameraActor::AMainCameraActor()
 
 	//m_MainCamera = GetCameraComponent();
 	//m_MainCamera->SetRelativeTransform(CameraTransform);
+
+	m_MainCamera = GetCameraComponent();
 }
 
 void AMainCameraActor::BeginPlay()
@@ -28,15 +30,4 @@ void AMainCameraActor::BeginPlay()
 
 	//m_MainCamera = GetCameraComponent();
 	//m_MainCamera->SetRelativeTransform(CameraTransform);
-}
-
-void AMainCameraActor::SetCameraData()
-{
-	const FVector CameraLoc(550.0f, 3220.0f, 460.0f);
-	const FRotator CameraRot(0.0f, -30.0f, 180.0f);
-	const FVector CameraSca(1.0f, 1.0f, 1.0f);
-	const FTransform CameraTransform(CameraRot, CameraLoc, CameraSca);
-
-	m_MainCamera = GetCameraComponent();
-	m_MainCamera->SetRelativeTransform(CameraTransform);
 }
