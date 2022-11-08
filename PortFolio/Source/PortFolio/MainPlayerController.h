@@ -21,6 +21,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 	UUserWidget* HUDOverlay;
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
+	class AMainCameraActor* MainCameraActor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
+	class AMainCameraActor* m_MainActor;
 
 protected:
 	virtual void BeginPlay() override;

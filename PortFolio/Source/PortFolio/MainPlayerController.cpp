@@ -9,7 +9,7 @@
 
 void AMainPlayerController::BeginPlay()
 {
-	Super::BeginPlay();
+	Super::BeginPlay(); 
 
 	TArray<AActor*> ActorsToFind;
 	if (UWorld* World = GetWorld())
@@ -17,18 +17,18 @@ void AMainPlayerController::BeginPlay()
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMainCameraActor::StaticClass(), ActorsToFind);
 	}
 
-	for (AActor* MainCameraActor : ActorsToFind)
+	for (AActor* CameraActor : ActorsToFind)
 	{
 		//이 액터의 유형이 FireEffect 클래스인지 여부입니다.
-		AMainCameraActor* CameraActor = Cast<AMainCameraActor>(MainCameraActor);
+		MainCameraActor = Cast<AMainCameraActor>(CameraActor);
 
-		UE_LOG(LogTemp, Warning, TEXT("Get CameraActor %s"), *CameraActor->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Get CameraActor %s"), *MainCameraActor->GetName());
 		
-		if (CameraActor)
+		if (MainCameraActor)
 		{
 			//파이어 파티클 컴포넌트를 가져와 비활성화합니다.            
 			//CameraActor->GetMainCameraComponent()
-			UE_LOG(LogTemp, Warning, TEXT("Get CameraActor %s"), *CameraActor->GetName());
+			UE_LOG(LogTemp, Warning, TEXT("Get CameraActor %s"), *MainCameraActor->GetName());
 		}
 	}
 
