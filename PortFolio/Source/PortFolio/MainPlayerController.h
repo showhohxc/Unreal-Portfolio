@@ -24,8 +24,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	class AMainCameraActor* MainCameraActor;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement)
-	class AMainCameraActor* m_MainActor;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+	class AMainCharacter* m_MainCharacterActor;
 
 protected:
 	virtual void BeginPlay() override;

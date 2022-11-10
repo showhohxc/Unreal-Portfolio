@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Camera/CameraComponent.h"
 #include "Blueprint/UserWidget.h"
+#include "MainCharacter.h"
 #include "MainCameraActor.h"
 
 void AMainPlayerController::BeginPlay()
@@ -21,8 +22,6 @@ void AMainPlayerController::BeginPlay()
 	{
 		//이 액터의 유형이 FireEffect 클래스인지 여부입니다.
 		MainCameraActor = Cast<AMainCameraActor>(CameraActor);
-
-		UE_LOG(LogTemp, Warning, TEXT("Get CameraActor %s"), *MainCameraActor->GetName());
 		
 		if (MainCameraActor)
 		{
