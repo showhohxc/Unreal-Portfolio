@@ -109,6 +109,8 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 		class UCameraComponent* m_FollowCamera;
 
+	FORCEINLINE UCameraComponent* GetMainCharacterCamera() { return m_FollowCamera; }
+
 	// Base Turn Rated to Scale Turning Functions for the Camera
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float m_fBaseTurnRate;

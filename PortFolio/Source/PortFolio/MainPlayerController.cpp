@@ -8,9 +8,17 @@
 #include "MainCharacter.h"
 #include "MainCameraActor.h"
 
+AMainPlayerController::AMainPlayerController()
+{
+	m_FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+	m_FollowCamera->SetupAttachment(GetRootComponent());
+}
+
 void AMainPlayerController::BeginPlay()
 {
 	Super::BeginPlay(); 
+
+	m_FollowCamera = m_MainCharacterActor->m_FollowCamera;
 
 	TArray<AActor*> ActorsToFind;
 	if (UWorld* World = GetWorld())

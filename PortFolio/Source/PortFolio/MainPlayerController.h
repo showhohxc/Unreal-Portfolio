@@ -15,6 +15,8 @@ class PORTFOLIO_API AMainPlayerController : public APlayerController
 	GENERATED_BODY()
 
 public:
+	AMainPlayerController();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Widgets")
 	TSubclassOf<class UUserWidget> HUDOverlayAsset;
 
@@ -24,8 +26,11 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
 	class AMainCameraActor* MainCameraActor;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Camera")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera")
 	class AMainCharacter* m_MainCharacterActor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera")
+	class UCameraComponent* m_FollowCamera;
 
 protected:
 	virtual void BeginPlay() override;
