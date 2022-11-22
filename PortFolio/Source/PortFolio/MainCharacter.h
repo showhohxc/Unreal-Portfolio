@@ -97,7 +97,6 @@ public:
 	void LMBDown();
 	void LMBUp();
 
-
 	/*
 	Camera Boom positioning the camera
 */
@@ -117,6 +116,20 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float m_fBaseLookUpRate;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
+	class AAIController* AIController;
+
+	UFUNCTION(BlueprintCallable)
+	void MoveToTarget(class AEnemy* Target);
+
+
+
+
+
+
+
+
 
 	// Character Stats
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player Stats")

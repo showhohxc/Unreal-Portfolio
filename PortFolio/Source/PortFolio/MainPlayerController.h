@@ -30,8 +30,18 @@ public:
 	class AMainCharacter* m_MainCharacterActor;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera")
+	class AEnemy* m_EnemyCharacterActor;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera")
 	class UCameraComponent* m_FollowCamera;
 
+
+	AMainCharacter* TestMainCharacterActor;
+	void MainCharNoramlAttack();
+	void EnemyCharNoramlAttack();
+
 protected:
+	virtual void SetupInputComponent() override;
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 };

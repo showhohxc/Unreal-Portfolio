@@ -10,8 +10,9 @@
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "AIController.h"
 //#include "Weapon.h"
-//#include "Enemy.h"
+#include "Enemy.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Animation/AnimInstance.h"
 #include "Kismet/GameplayStatics.h"
@@ -63,6 +64,9 @@ void AMainCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	MainPlayerController = Cast<AMainPlayerController>(GetController());
+
+	AIController = Cast<AAIController>(GetController());
+	UE_LOG(LogTemp, Warning, TEXT("MainCharacter BeginPlay AIController %s : "), AIController);
 }
 
 // Called every frame
@@ -70,125 +74,125 @@ void AMainCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (MovemoentStatus == EMovementStatus::EMS_DEAD) return;
+	//if (MovemoentStatus == EMovementStatus::EMS_DEAD) return;
 
-	float DeltaStamina = fStaminaDrainRate * DeltaTime;
+	//float DeltaStamina = fStaminaDrainRate * DeltaTime;
 
-	switch (StaminaStatus)
-	{
-	case EStaminaStatus::ESS_NORMAL:
-	{
-		if (bShiftKeyDown)
-		{
-			if (fStamina - DeltaStamina <= fMinSprintStamina)
-			{
-				SetStaminaStatus(EStaminaStatus::ESS_BELOWMINIUM);
-				fStamina -= DeltaStamina;
-			}
-			else
-			{
-				fStamina -= DeltaStamina;
-			}
+	//switch (StaminaStatus)
+	//{
+	//case EStaminaStatus::ESS_NORMAL:
+	//{
+	//	if (bShiftKeyDown)
+	//	{
+	//		if (fStamina - DeltaStamina <= fMinSprintStamina)
+	//		{
+	//			SetStaminaStatus(EStaminaStatus::ESS_BELOWMINIUM);
+	//			fStamina -= DeltaStamina;
+	//		}
+	//		else
+	//		{
+	//			fStamina -= DeltaStamina;
+	//		}
 
-			if (bMovingForward || bMovingRight)
-			{
-				SetMovementStatus(EMovementStatus::EMS_SPRINTING);
-			}
-			else
-			{
-				SetMovementStatus(EMovementStatus::EMS_NORMAL);
-			}
-		}
-		else
-		{
-			// Shift Up
-			if (fStamina + DeltaStamina >= fMaxStamina)
-			{
-				fStamina = fMaxStamina;
-			}
-			else
-			{
-				fStamina += DeltaStamina;
-			}
+	//		if (bMovingForward || bMovingRight)
+	//		{
+	//			SetMovementStatus(EMovementStatus::EMS_SPRINTING);
+	//		}
+	//		else
+	//		{
+	//			SetMovementStatus(EMovementStatus::EMS_NORMAL);
+	//		}
+	//	}
+	//	else
+	//	{
+	//		// Shift Up
+	//		if (fStamina + DeltaStamina >= fMaxStamina)
+	//		{
+	//			fStamina = fMaxStamina;
+	//		}
+	//		else
+	//		{
+	//			fStamina += DeltaStamina;
+	//		}
 
-			SetMovementStatus(EMovementStatus::EMS_NORMAL);
-		}
+	//		SetMovementStatus(EMovementStatus::EMS_NORMAL);
+	//	}
 
-	} break;
+	//} break;
 
-	case EStaminaStatus::ESS_BELOWMINIUM:
-	{
-		if (bShiftKeyDown)
-		{
-			if (fStamina - DeltaStamina <= 0.0f)
-			{
-				SetStaminaStatus(EStaminaStatus::ESS_EXHAUSTED);
-				fStamina = 0;
-				SetMovementStatus(EMovementStatus::EMS_NORMAL);
-			}
-			else
-			{
-				fStamina -= DeltaStamina;
+	//case EStaminaStatus::ESS_BELOWMINIUM:
+	//{
+	//	if (bShiftKeyDown)
+	//	{
+	//		if (fStamina - DeltaStamina <= 0.0f)
+	//		{
+	//			SetStaminaStatus(EStaminaStatus::ESS_EXHAUSTED);
+	//			fStamina = 0;
+	//			SetMovementStatus(EMovementStatus::EMS_NORMAL);
+	//		}
+	//		else
+	//		{
+	//			fStamina -= DeltaStamina;
 
-				if (bMovingForward || bMovingRight)
-				{
-					SetMovementStatus(EMovementStatus::EMS_SPRINTING);
-				}
-				else
-				{
-					SetMovementStatus(EMovementStatus::EMS_NORMAL);
-				}
-			}
-		}
-		else
-		{
-			// Shift up
-			if (fStamina + DeltaStamina >= fMinSprintStamina)
-			{
-				SetStaminaStatus(EStaminaStatus::ESS_NORMAL);
-				fStamina += DeltaStamina;
-			}
-			else
-			{
-				fStamina += DeltaStamina;
-			}
+	//			if (bMovingForward || bMovingRight)
+	//			{
+	//				SetMovementStatus(EMovementStatus::EMS_SPRINTING);
+	//			}
+	//			else
+	//			{
+	//				SetMovementStatus(EMovementStatus::EMS_NORMAL);
+	//			}
+	//		}
+	//	}
+	//	else
+	//	{
+	//		// Shift up
+	//		if (fStamina + DeltaStamina >= fMinSprintStamina)
+	//		{
+	//			SetStaminaStatus(EStaminaStatus::ESS_NORMAL);
+	//			fStamina += DeltaStamina;
+	//		}
+	//		else
+	//		{
+	//			fStamina += DeltaStamina;
+	//		}
 
-			SetMovementStatus(EMovementStatus::EMS_NORMAL);
-		}
-	} break;
+	//		SetMovementStatus(EMovementStatus::EMS_NORMAL);
+	//	}
+	//} break;
 
-	case EStaminaStatus::ESS_EXHAUSTED:
-	{
-		if (bShiftKeyDown)
-		{
-			fStamina = 0.0f;
-		}
-		else
-		{
-			SetStaminaStatus(EStaminaStatus::ESS_EXHAUSTEDRECOVERING);
-			fStamina += DeltaStamina;
-		}
+	//case EStaminaStatus::ESS_EXHAUSTED:
+	//{
+	//	if (bShiftKeyDown)
+	//	{
+	//		fStamina = 0.0f;
+	//	}
+	//	else
+	//	{
+	//		SetStaminaStatus(EStaminaStatus::ESS_EXHAUSTEDRECOVERING);
+	//		fStamina += DeltaStamina;
+	//	}
 
-		SetMovementStatus(EMovementStatus::EMS_NORMAL);
-	} break;
+	//	SetMovementStatus(EMovementStatus::EMS_NORMAL);
+	//} break;
 
-	case EStaminaStatus::ESS_EXHAUSTEDRECOVERING:
-	{
-		if (fStamina + DeltaStamina >= fMinSprintStamina)\
-		{
-			SetStaminaStatus(EStaminaStatus::ESS_NORMAL);
-			fStamina += DeltaStamina;
-		}
-		else
-		{
-			fStamina += DeltaStamina;
-		}
+	//case EStaminaStatus::ESS_EXHAUSTEDRECOVERING:
+	//{
+	//	if (fStamina + DeltaStamina >= fMinSprintStamina)\
+	//	{
+	//		SetStaminaStatus(EStaminaStatus::ESS_NORMAL);
+	//		fStamina += DeltaStamina;
+	//	}
+	//	else
+	//	{
+	//		fStamina += DeltaStamina;
+	//	}
 
-		SetMovementStatus(EMovementStatus::EMS_NORMAL);
-	} break;
+	//	SetMovementStatus(EMovementStatus::EMS_NORMAL);
+	//} break;
 
-	default:;
-	}
+	//default:;
+	//}
 
 }
 
@@ -556,3 +560,21 @@ float AMainCharacter::TakeDamage(float DamageAmount, struct FDamageEvent const& 
 //	}
 //}
 
+void AMainCharacter::MoveToTarget(class AEnemy* Target)
+{
+	UE_LOG(LogTemp, Warning, TEXT("MainCharacter AIController %s : "), AIController);
+
+	if (AIController)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("MainCharacter to Enemy MoveToTarget()"));
+
+		FAIMoveRequest MoveRequest;
+		MoveRequest.SetGoalActor(Target);
+		// 오브젝트와의 충돌 사이 자간??
+		MoveRequest.SetAcceptanceRadius(25.0f);
+
+		FNavPathSharedPtr NavPath;
+
+		AIController->MoveTo(MoveRequest, &NavPath);
+	}
+}

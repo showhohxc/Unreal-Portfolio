@@ -17,6 +17,7 @@
 #include "Camera/CameraComponent.h"
 #include "TimerManager.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/InputComponent.h"
 #include "MainPlayerController.h"
 
 // Sets default values
@@ -69,6 +70,13 @@ void AEnemy::Tick(float DeltaTime)
 void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	check(PlayerInputComponent);
 
+	PlayerInputComponent->BindAction("EnemyCharacterAttack_1", IE_Pressed, this, &AEnemy::NormalAttack);
+}
+
+void AEnemy::NormalAttack()
+{
+	UE_LOG(LogTemp, Warning, TEXT("AEnemy Normal Attack "));
 }
 

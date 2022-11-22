@@ -6,6 +6,8 @@
 #include "Camera/CameraComponent.h"
 #include "Blueprint/UserWidget.h"
 #include "MainCharacter.h"
+#include "Enemy.h"
+#include "Components/InputComponent.h"
 #include "MainCameraActor.h"
 
 AMainPlayerController::AMainPlayerController()
@@ -22,7 +24,8 @@ void AMainPlayerController::BeginPlay()
 	TArray<AActor*> ActorsToFind;
 	TArray<AActor*> ActorsToFind2;
 
-
+	// Test -> Null
+	TestMainCharacterActor = Cast<AMainCharacter>(GetPawn());
 
 	if (UWorld* World = GetWorld())
 	{
@@ -75,6 +78,27 @@ void AMainPlayerController::BeginPlay()
 
 	HUDOverlay->AddToViewport();
 	HUDOverlay->SetVisibility(ESlateVisibility::Visible);
+}
 
+void AMainPlayerController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
 
 }
+
+void AMainPlayerController::SetupInputComponent()
+{
+	Super::SetupInputComponent();
+
+	InputComponent->BindAction("MainCharacterAttack_1", IE_Pressed, this, &AMainPlayerController::MainCharNoramlAttack);
+}
+
+void AMainPlayerController::MainCharNoramlAttack()
+{
+	UE_LOG(LogTemp, Warning, TEXT("MainCharacter Normal Attack %s : Enemy Type : "), *m_EnemyCharacterActor->GetName());
+
+	SetViewTargetWithBlend(m_MainCharacterActor);
+	m_MainCharacterActor->MoveToTarget(m_EnemyCharacterActor);
+}
+
+
