@@ -26,6 +26,16 @@ public:
 	// Sets default values for this character's properties
 	AEnemy();
 
+	// Camera
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class USpringArmComponent* m_CameraBoom;
+	/* FollowCamera */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+		class UCameraComponent* m_FollowCamera;
+	FORCEINLINE UCameraComponent* GetMainCharacterCamera() { return m_FollowCamera; }
+	//
+
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Movement")
 	EEnemyMovemntStatus EnemyMovementStatus;
 

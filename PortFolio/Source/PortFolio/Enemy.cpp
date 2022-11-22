@@ -13,6 +13,8 @@
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundCue.h"
 #include "Animation/AnimInstance.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 #include "TimerManager.h"
 #include "Components/CapsuleComponent.h"
 #include "MainPlayerController.h"
@@ -22,6 +24,17 @@ AEnemy::AEnemy()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	m_CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
+	m_CameraBoom->SetupAttachment(GetRootComponent());
+	m_CameraBoom->TargetArmLength = 400.f;	// 카메라와 플레이어 거리
+	m_CameraBoom->bUsePawnControlRotation = true;	// 컨트롤러 기반 팔 회전
+
+	// Create Folow Camera
+	m_FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
+	m_FollowCamera->SetupAttachment(m_CameraBoom, USpringArmComponent::SocketName);
+	m_FollowCamera->bUsePawnControlRotation = false;
+
 
 	m_CombatCollision = CreateDefaultSubobject<UBoxComponent>(TEXT("ComBatCollision"));
 	m_CombatCollision->SetupAttachment(GetMesh(), FName("EnemySocket"));

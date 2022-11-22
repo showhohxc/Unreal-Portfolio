@@ -22,14 +22,20 @@ void AMainPlayerController::BeginPlay()
 	TArray<AActor*> ActorsToFind;
 	TArray<AActor*> ActorsToFind2;
 
+
+
 	if (UWorld* World = GetWorld())
 	{
+		/*AActor* Main = UGameplayStatics::GetActorOfClass(GetWorld(), AMainCharacter::StaticClass());
+		MainCameraActor = dynamic_cast<AMainCameraActor*>(Main);
+		UE_LOG(LogTemp, Warning, TEXT("Get AMainCameraActor Name %s"), MainCameraActor);*/
+
 		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMainCameraActor::StaticClass(), ActorsToFind);
-		UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMainCharacter::StaticClass(), ActorsToFind2);
+		//UGameplayStatics::GetAllActorsOfClass(GetWorld(), AMainCharacter::StaticClass(), ActorsToFind2);
 		//UGameplayStatics::GetAllActorsOfClass(GetWorld(), AActor::StaticClass(), ActorsToFind);
 	}
 
-	UE_LOG(LogTemp, Warning, TEXT("Get Actor Number %d"), ActorsToFind.Num());
+	//UE_LOG(LogTemp, Warning, TEXT("Get Actor Number %d"), ActorsToFind.Num());
 
 	for (int i = 0; i < ActorsToFind.Num(); ++i)
 	{
@@ -37,11 +43,11 @@ void AMainPlayerController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("Get AMainCameraActor Name %s"), *MainCameraActor->GetName());
 	}
 
-	for (int i = 0; i < ActorsToFind.Num(); ++i)
-	{
-		m_MainCharacterActor = dynamic_cast<AMainCharacter*>(ActorsToFind2[i]);
-		UE_LOG(LogTemp, Warning, TEXT("Get AMainCharacter Name %s"), *m_MainCharacterActor->GetName());
-	}
+	//for (int i = 0; i < ActorsToFind.Num(); ++i)
+	//{
+	//	m_MainCharacterActor = dynamic_cast<AMainCharacter*>(ActorsToFind2[i]);
+	//	UE_LOG(LogTemp, Warning, TEXT("Get AMainCharacter Name %s"), *m_MainCharacterActor->GetName());
+	//}
 
 	//for (AActor* CameraActor : ActorsToFind)
 	//{
