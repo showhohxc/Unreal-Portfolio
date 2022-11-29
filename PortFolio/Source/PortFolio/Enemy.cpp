@@ -80,3 +80,33 @@ void AEnemy::NormalAttack()
 	UE_LOG(LogTemp, Warning, TEXT("AEnemy Normal Attack "));
 }
 
+void AEnemy::MoveToTarget(class AMainCharacter* Target)
+{
+	SetEnemyMovementStatus(EEnemyMovemntStatus::EMS_MoveToTarget);
+
+	if (AIController)
+	{
+		//UE_LOG(LogTemp, Warning, TEXT("MoveToTarget()"));
+		FAIMoveRequest MoveRequest;
+		MoveRequest.SetGoalActor(Target);
+		// 오브젝트와의 충돌 사이 자간??
+		MoveRequest.SetAcceptanceRadius(25.0f);
+
+		FNavPathSharedPtr NavPath;
+
+		AIController->MoveTo(MoveRequest, &NavPath);
+
+		//TArray<FNavPathPoint> PathPoints = NavPath->GetPathPoints();
+		/* 나중에 사용하자 */
+		//auto PathPoints = NavPath->GetPathPoints();
+
+		//for (auto Point : PathPoints)
+		//{
+		//	//FNavLocation
+		//	FVector Location = Point.Location;
+
+		//	UKismetSystemLibrary::DrawDebugSphere(this, Location, 25.f, 8, FLinearColor::Red, 15.f, 1.5f);
+		//}
+	}
+}
+

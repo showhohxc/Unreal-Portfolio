@@ -66,7 +66,8 @@ void AMainCharacter::BeginPlay()
 	MainPlayerController = Cast<AMainPlayerController>(GetController());
 
 	AIController = Cast<AAIController>(GetController());
-	UE_LOG(LogTemp, Warning, TEXT("MainCharacter BeginPlay AIController %s : "), AIController);
+
+
 }
 
 // Called every frame

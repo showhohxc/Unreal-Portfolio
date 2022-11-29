@@ -8,6 +8,7 @@
 #include "MainCharacter.h"
 #include "Enemy.h"
 #include "Components/InputComponent.h"
+#include "AIController.h"
 #include "MainCameraActor.h"
 
 AMainPlayerController::AMainPlayerController()
@@ -78,6 +79,32 @@ void AMainPlayerController::BeginPlay()
 
 	HUDOverlay->AddToViewport();
 	HUDOverlay->SetVisibility(ESlateVisibility::Visible);
+
+	//=================================================================================================
+
+	UWorld* World = GetWorld();
+
+	if (World)
+	{
+		AMainCharacter* Main = Cast<AMainCharacter>(m_MainCharacterActor);
+
+		UE_LOG(LogTemp, Warning, TEXT("MainCharacter State %s"), m_MainCharacterActor);
+
+		if (Main)
+		{
+			Main->SpawnDefaultController();
+
+			AAIController* AIController = Cast<AAIController>(Main->GetController());
+			UE_LOG(LogTemp, Warning, TEXT("MainCharacter Controller %s"), AIController);
+
+			if (AIController)
+			{
+				Main->AIController = AIController;
+			}
+
+			UE_LOG(LogTemp, Warning, TEXT("MainCharacter Controller State : %s  || %s"), AIController, Main);
+		}
+	}
 }
 
 void AMainPlayerController::Tick(float DeltaTime)

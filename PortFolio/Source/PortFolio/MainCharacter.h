@@ -117,7 +117,7 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 		float m_fBaseLookUpRate;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
 	class AAIController* AIController;
 
 	UFUNCTION(BlueprintCallable)

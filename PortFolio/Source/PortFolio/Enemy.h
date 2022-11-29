@@ -42,13 +42,16 @@ public:
 	FORCEINLINE void SetEnemyMovementStatus(EEnemyMovemntStatus status) { EnemyMovementStatus = status; }
 	FORCEINLINE EEnemyMovemntStatus GetEnemyMovementStatus() const { return EnemyMovementStatus; }
 
+	UFUNCTION(BlueprintCallable)
+	void MoveToTarget(class AMainCharacter* Target);
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 	class USphereComponent* AgroSphere;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
 	class USphereComponent* CombatSphere;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AI")
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "AI")
 	class AAIController* AIController;
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Combat")

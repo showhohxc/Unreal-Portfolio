@@ -5,6 +5,7 @@
 #include "Components/BoxComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Engine/World.h"
+#include "Enemy.h"
 #include "AIController.h"
 
 // Sets default values
@@ -53,19 +54,21 @@ void ASpawnVolume::SpawnOurActor_Implementation(UClass* ToSpawn, const FVector& 
 		if (World)
 		{
 			AActor* Actor = World->SpawnActor<AActor>(ToSpawn, Location, FRotator(0), SpawnParams);
-			//AEnemy* Enemy = Cast<AEnemy>(Actor);
+			AEnemy* Enemy = Cast<AEnemy>(Actor);
 
-			//if (Enemy)
-			//{
-			//	Enemy->SpawnDefaultController();
+			if (Enemy)
+			{
+				Enemy->SpawnDefaultController();
 
-			//	AAIController* AICont = Cast<AAIController>(Enemy->GetController());
+				AAIController* AIController = Cast<AAIController>(Enemy->GetController());
 
-			//	if (AICont)
-			//	{
-			//		Enemy->AIController = AICont;
-			//	}
-			//}
+				if (AIController)
+				{
+					Enemy->AIController = AIController;
+				}
+
+				UE_LOG(LogTemp, Warning, TEXT("Enemy Controller State : %s  || %s"), AIController, Enemy);
+			}
 		}
 	}
 }
