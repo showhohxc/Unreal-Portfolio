@@ -82,29 +82,29 @@ void AMainPlayerController::BeginPlay()
 
 	//=================================================================================================
 
-	UWorld* World = GetWorld();
+	//UWorld* World = GetWorld();
 
-	if (World)
-	{
-		AMainCharacter* Main = Cast<AMainCharacter>(m_MainCharacterActor);
+	//if (World)
+	//{
+	//	AMainCharacter* Main = Cast<AMainCharacter>(m_MainCharacterActor);
 
-		UE_LOG(LogTemp, Warning, TEXT("MainCharacter State %s"), m_MainCharacterActor);
+	//	UE_LOG(LogTemp, Warning, TEXT("MainCharacter State %s"), m_MainCharacterActor);
 
-		if (Main)
-		{
-			Main->SpawnDefaultController();
+	//	if (Main)
+	//	{
+	//		Main->SpawnDefaultController();
 
-			AAIController* AIController = Cast<AAIController>(Main->GetController());
-			UE_LOG(LogTemp, Warning, TEXT("MainCharacter Controller %s"), AIController);
+	//		AAIController* AIController = Cast<AAIController>(Main->GetController());
+	//		UE_LOG(LogTemp, Warning, TEXT("MainCharacter Controller %s"), AIController);
 
-			if (AIController)
-			{
-				Main->AIController = AIController;
-			}
+	//		if (AIController)
+	//		{
+	//			Main->AIController = AIController;
+	//		}
 
-			UE_LOG(LogTemp, Warning, TEXT("MainCharacter Controller State : %s  || %s"), AIController, Main);
-		}
-	}
+	//		UE_LOG(LogTemp, Warning, TEXT("MainCharacter Controller State : %s  || %s"), AIController, Main);
+	//	}
+	//}
 }
 
 void AMainPlayerController::Tick(float DeltaTime)
